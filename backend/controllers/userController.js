@@ -216,7 +216,12 @@ if (existingAppointment) {
         // save new slots data in docData
         await doctorModel.findByIdAndUpdate(docId, { slots_booked })
 
-        await sendEmail(
+
+        res.json({
+    success: true,
+    message: 'Appointment Booked'
+})
+    sendEmail(
     userData.email,
     "Appointment Confirmed | Doc-Connect",
 
@@ -258,10 +263,7 @@ if (existingAppointment) {
     `
 )
 
-res.json({
-    success: true,
-    message: 'Appointment Booked'
-})
+
 
     } catch (error) {
         console.log(error)
@@ -474,7 +476,7 @@ const verifyStripe = async (req, res) => {
     const appointmentData =
         await appointmentModel.findById(appointmentId)
 
-    await sendEmail(
+    sendEmail(
     appointmentData.userData.email,
     "Payment Successful | Doc-Connect",
 

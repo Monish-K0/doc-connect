@@ -260,7 +260,7 @@ if (existingPrescription) {
             new prescriptionModel(prescriptionData)
 
         await newPrescription.save()
-        await sendEmail(
+        sendEmail(
     appointmentData.userData.email,
     "Prescription Ready | Doc-Connect",
 
