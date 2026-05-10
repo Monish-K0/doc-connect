@@ -23,8 +23,19 @@ app.use(cors({
         'https://doc-connect-chi.vercel.app',
         'https://doc-connect-qj97.vercel.app'
     ],
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'atoken', 'dtoken']
 }))
+// app.use(cors({
+//     origin: [
+//         'http://localhost:5173',
+//         'http://localhost:5174',
+//         'https://doc-connect-chi.vercel.app',
+//         'https://doc-connect-qj97.vercel.app'
+//     ],
+//     credentials: true
+// }))
 // app.use(cors({
 //     origin: [
 //         'https://doc-connect-chi.vercel.app'
