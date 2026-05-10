@@ -17,17 +17,25 @@ connectCloudinary()
 app.use(express.json())
 
 app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'http://localhost:5174',
-        'https://doc-connect-chi.vercel.app',
-        'https://doc-connect-qj97.vercel.app'
-    ],
+    origin: function (origin, callback) {
+
+        if (
+            !origin ||
+            origin.includes('localhost') ||
+            origin.includes('vercel.app')
+        ) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'atoken', 'dtoken'],
     credentials: true
 }))
 
+app.options('*', cors())
 app.options('*', cors())
 // api endpoints
 app.use("/api/user", userRouter)
