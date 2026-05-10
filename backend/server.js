@@ -31,9 +31,17 @@ app.use(cors({
 
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'atoken', 'dtoken'],
+    allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'token',
+        'atoken',
+        'dtoken'
+    ],
     credentials: true
 }))
+
+app.options('*', cors())
 
 app.options('*', cors())
 app.options('*', cors())
