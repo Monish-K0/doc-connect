@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+
+    background: #F8FAFC;
+
+    color: #0F172A;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+/* DARK MODE */
+
+.dark body {
+
+    background: #020617;
+
+    color: #F8FAFC;
+}
+
+/* GLOBAL DARK MODE HELPERS */
+
+.dark .dark-card {
+
+    background: #0F172A !important;
+
+    border-color: #1E293B !important;
+}
+
+.dark .dark-text {
+
+    color: #F8FAFC !important;
+}
+
+.dark .dark-subtext {
+
+    color: #94A3B8 !important;
+}
+
+.active hr {
+    @apply block
+}
+
+@media (max-width:740px) {
+    .active  p{
+       @apply text-white bg-primary
+    }
+}
+
+::-webkit-scrollbar {
+    @apply hidden
+}
+
+/* GLOBAL DARK MODE TEXT FIXES */
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+
+    color: white;
+}
+
+.dark p {
+
+    color: #CBD5E1;
+}
+
+.dark span {
+
+    color: inherit;
+}
