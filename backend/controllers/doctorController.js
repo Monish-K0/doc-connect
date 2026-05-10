@@ -3,7 +3,8 @@ import bcrypt from "bcrypt";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
 import prescriptionModel from "../models/prescriptionModel.js";
-import sendEmail from "../config/nodemailer.js";
+//import sendEmail from "../config/nodemailer.js";
+import sendEmail from '../utils/sendEmail.js'
 
 // API for doctor Login 
 const loginDoctor = async (req, res) => {
@@ -260,11 +261,10 @@ if (existingPrescription) {
             new prescriptionModel(prescriptionData)
 
         await newPrescription.save()
-        sendEmail(
-    appointmentData.userData.email,
-    "Prescription Ready | Doc-Connect",
-
-    `
+        sendEmail({
+    to: appointmentData.userData.email,
+    subject: "Prescription Ready | Doc-Connect",
+    html: `
     <div style="font-family: Arial; padding: 20px;">
 
         <h2 style="color:#2563EB;">
@@ -297,7 +297,7 @@ if (existingPrescription) {
 
     </div>
     `
-)
+}).catch(console.error)
 
         // update appointment status
         await appointmentModel.findByIdAndUpdate(

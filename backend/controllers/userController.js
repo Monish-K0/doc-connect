@@ -8,7 +8,8 @@ import prescriptionModel from "../models/prescriptionModel.js";
 import { v2 as cloudinary } from 'cloudinary'
 import stripe from "stripe";
 import razorpay from 'razorpay';
-import sendEmail from "../config/nodemailer.js";
+//import sendEmail from "../config/nodemailer.js";
+import sendEmail from '../utils/sendEmail.js'
 
 // Gateway Initialize
 const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
@@ -221,11 +222,10 @@ if (existingAppointment) {
     success: true,
     message: 'Appointment Booked'
 })
-    sendEmail(
-    userData.email,
-    "Appointment Confirmed | Doc-Connect",
-
-    `
+    sendEmail({
+    to: userData.email,
+    subject: "Appointment Confirmed | Doc-Connect",
+    html: `
     <div style="font-family: Arial; padding: 20px;">
 
         <h2 style="color:#4F46E5;">
@@ -261,7 +261,7 @@ if (existingAppointment) {
 
     </div>
     `
-)
+}).catch(console.error)
 
 
 
@@ -476,11 +476,10 @@ const verifyStripe = async (req, res) => {
     const appointmentData =
         await appointmentModel.findById(appointmentId)
 
-    sendEmail(
-    appointmentData.userData.email,
-    "Payment Successful | Doc-Connect",
-
-    `
+    sendEmail({
+    to: appointmentData.userData.email,
+    subject: "Payment Successful | Doc-Connect",
+    html: `
     <div style="font-family: Arial; padding: 20px;">
 
         <h2 style="color:green;">
@@ -511,7 +510,7 @@ const verifyStripe = async (req, res) => {
 
     </div>
     `
-)
+}).catch(console.error)
 
     return res.json({
         success: true,
